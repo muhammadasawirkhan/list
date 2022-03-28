@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>List</title>
+</head>
+<body>
+Enter Text:
+<input type="text" id="srch"/>
+
+<br/>
+<button id="searchbtn" onclick="list1(1)">Search</button>
+
+<br/>
+Enter Text:
+<input type="text" id="search"/>
+
+<button id="addbtn" onclick="add()">Add</button>
+<br/>
+<button id="updatebtn" onclick="update()">Update</button>
+
+<input type="hidden" id="id"/>
+
+<div id="main">
+
+
+</div>
+<script> 
+var list=[];
+function hide_update()
+{
+document.querySelector("#updatebtn").style.display="none";
+
+}
+hide_update();
+//var updatebtn=document.querySelector("#updatebtn");
+function add()
+{
+	var course=document.querySelector("#search").value;
+	//var course1=document.querySelector("#search").value;
+
+	list.push(course);
+	list1('');
+}
+function update()
+{
+	var course=document.querySelector("#search").value;
+	var id=document.querySelector("#id").value;
+		list[id]=course;
+	
+	//list.push(course);
+	list1('');
+	hide_update();
+	document.querySelector("#search").value="";
+}
+function list1(op)
+{
+
+	var str="<ul>";
+	var word=document.querySelector("#srch").value;
+		
+	for(i=0;i<list.length;i++)
+	{
+		if(op==1)
+		{
+			if(list[i]==word)
+		str+=`<li>
+
+		${list[i]}
+
+		<button id="editbtn" onclick="edit(${i})">Edit</button>
+		<button id="deletebtn" onclick="delete1(${i})">Dleete</button>
+
+		</li>`;
+	}
+	else{
+		str+=`<li>
+
+		${list[i]}
+
+		<button id="editbtn" onclick="edit(${i})">Edit</button>
+		<button id="deletebtn" onclick="delete1(${i})">Dleete</button>
+
+		</li>`;
+	}
+	}
+	str+="</ul>";
+	document.querySelector("#main").innerHTML=str;
+}
+function delete1(c)
+{
+	for(i=0;i<list.length;i++)
+	{
+		if(i==c)
+		{
+	//	alert(i);
+		list.splice(c);
+		break;
+		}
+	}	
+	list1();
+		
+}
+function edit(c)
+{
+
+	
+	for(i=0;i<list.length;i++)
+	{
+		if(i==c)
+		{
+		document.querySelector("#search").value=list[i];
+		document.querySelector("#id").value=c;
+		//alert(document.querySelector("#id").value);
+		document.querySelector("#updatebtn").style.display="block";
+
+			
+		//var editbtn=document.querySelector("#editbtn");
+		//editbtn.setAttribute("onClick","Update("+${i}+")");
+		//document.querySelector("#editbtn");
+		//var edit=.textContent="Update";		
+		break;
+		}
+	}	
+}
+
+</script>
+</body>
+</html>
